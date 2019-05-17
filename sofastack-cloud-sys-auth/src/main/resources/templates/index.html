@@ -1,0 +1,84 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+	<meta charset="utf-8">
+	<title>登录</title>
+	<meta content="width=device-width, initial-scale=1.0" name="viewport">
+	<link href="http://localhost:8088/static/img/favicon.png" rel="icon">
+	<link href="http://localhost:8088/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+	<link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+	<link href="http://localhost:8088/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link href="http://localhost:8088/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<div id="contact">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-8 col-md-offset-2">
+				<h2 class="centered">登录</h2>
+				<form id="form" class="contact-form php-mail-form" role="form" action="#" method="POST">
+					<div class="form-group">
+						<input type="targetId" name="targetId" class="form-control" id="contact-name" placeholder="账户" data-rule="minlen:1" data-msg="Please enter target account" >
+						<div class="validate"></div>
+					</div>
+					<div class="form-group">
+						<input type="password" name="password" class="form-control" id="contact-password" placeholder="密码" data-rule="minlen:4" data-msg="Please enter password">
+						<div class="validate"></div>
+					</div>
+
+					<div class="form-group" hidden>
+						<input type="hidden" name="backUrl" class="form-control" id="back-url" th:value="${backUrl}">
+					</div>
+
+					<div class="form-group" hidden>
+						<input type="hidden" name="isParam" class="form-control" id="link-param" th:value="${linkParam}">
+					</div>
+
+					<div class="form-send">
+						<input type="button" id="submit" class="btn btn-large" value="登录"/>
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+<!-- JavaScript Libraries -->
+<script src="http://localhost:8088/static/lib/jquery/jquery.min.js"></script>
+<script src="http://localhost:8088/static/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="http://localhost:8088/static/lib/php-mail-form/validate.js"></script>
+<script src="http://localhost:8088/static/lib/easing/easing.min.js"></script>
+<!-- Template Main Javascript File -->
+<script src="http://localhost:8088/static/js/main.js"></script>
+
+<script type="text/javascript">
+    $("#submit").click(function () {
+        var targetId = $("#contact-name").val();
+        var password = $("#contact-password").val();
+        var backUrl = $("#back-url").val();
+        var isParam = $("#link-param").val();
+        $.ajax({
+            url: "/auth/valid",
+            data: {
+                "userName": targetId,
+                "password": password,
+                "backUrl": backUrl
+            },
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                if(data.success){
+                    if (isParam == true || isParam === "true") {
+                        window.location.href=backUrl+"&code="+data.data;
+					}else {
+                        window.location.href=backUrl+"?code="+data.data;
+					}
+                }else{
+                    window.location.href="/loginError";
+				}
+            }
+        });
+    });
+</script>
+</body>
+</html>

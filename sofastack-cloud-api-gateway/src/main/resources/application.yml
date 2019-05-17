@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: api-gateway
+  profiles:
+    active: github
+server:
+  port: 8080
+logging:
+  level:
+    io:
+      sofastack:
+        cloud: INFO
+  path: ./logs
+  config: classpath:logback-gateway.xml

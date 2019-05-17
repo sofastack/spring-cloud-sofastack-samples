@@ -1,0 +1,16 @@
+spring:
+  cloud:
+    zookeeper:
+      connect-string: ${your-zookeeper-hostname}:2181
+      discovery:
+        enabled: true
+        instance-id: api-gateway
+sofastack:
+  auth:
+    server:
+      url: http://localhost:8033/login
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"

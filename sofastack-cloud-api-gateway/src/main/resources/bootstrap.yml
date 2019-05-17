@@ -1,0 +1,23 @@
+spring:
+  cloud:
+    gateway:
+      routes:
+        - id: biz-web
+          uri: lb://biz-web
+          predicates:
+            - Path=/api/**
+          filters:
+            - StripPrefix=1
+        - id: biz-static
+          uri: http://localhost:8088     #sc-gateway 没有提供关于如何路由静态资源的方法，如果在生产环境，静态资源地址需要单独制定
+          predicates:
+            - Path=/static/**
+  resources:
+    add-mappings: false
+logging:
+  config: classpath:logback-gateway.xml
+  path: ./logs
+  level:
+    io:
+      sofastack:
+        cloud: info

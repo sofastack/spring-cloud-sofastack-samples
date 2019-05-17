@@ -1,0 +1,122 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="utf-8">
+  <title>转账</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="http://localhost:8088/static/img/favicon.png" rel="icon">
+  <link href="http://localhost:8088/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+  <link href="http://localhost:8088/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:8088/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+<!--<div class="container" style="margin: 0 auto">-->
+  <!--&lt;!&ndash; /row &ndash;&gt;-->
+  <!--<div class="row mt centered">-->
+    <!--<div class="col-lg-4">-->
+      <!--<img class="img-circle" src="http://localhost:8088/static/img/ant.jpeg" width="140" alt="">-->
+      <!--<h4>SOFAStack</h4>-->
+      <!--<p style="margin-bottom:5px ">账户ID：<span th:text="${accountId}"></span></p>-->
+      <!--<p style="margin-bottom:5px ">账户余额：<span th:text="${balance}"></span></p>-->
+      <!--&lt;!&ndash;<p><i class="glyphicon glyphicon-send"></i> <i class="glyphicon glyphicon-phone"></i> <i class="glyphicon glyphicon-globe"></i></p>&ndash;&gt;-->
+    <!--</div>-->
+    <!--&lt;!&ndash;/col-lg-4 &ndash;&gt;-->
+  <!--</div>-->
+  <!--&lt;!&ndash; /row &ndash;&gt;-->
+<!--</div>-->
+<!--&lt;!&ndash; /container &ndash;&gt;-->
+
+
+<div id="contact">
+    <div class="container">
+      <div class="row">
+        <img src="https://gw.alipayobjects.com/mdn/sofastack/afts/img/A*WA_HRJ7TKlq4e3BEnwnJCwBjAQAAAQ/original" style="width: 100%;height: 100%">
+      </div>
+
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          账户信息
+        </div>
+        <div class="panel-body">
+          <p style="margin-bottom:5px ">账户ID：<span th:text="${accountId}"></span></p>
+          <p style="margin-bottom:5px ">账户余额：<span th:text="${balance}"></span></p>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-8 col-md-offset-2">
+          <form id="form" class="contact-form php-mail-form" role="form" method="POST">
+            <div class="form-group">
+              <input type="targetId" name="targetId" class="form-control" id="contact-name" placeholder="对方账户" data-rule="minlen:1" data-msg="Please enter target account" >
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+              <input type="number" name="money" class="form-control" id="contact-money" placeholder="转账金额" data-rule="minlen:1" data-msg="Please enter transfer money">
+              <div class="validate"></div>
+            </div>
+            <div class="form-group">
+              <input type="password" name="password" class="form-control" id="contact-password" placeholder="转账密码" data-rule="minlen:4" data-msg="Please enter password">
+              <div class="validate"></div>
+            </div>
+            <div class="form-group" hidden>
+              <input type="hidden" name="userId" class="form-control" id="contact-userId" placeholder="self账户" data-msg="Please enter target account" th:value="${userId}">
+            </div>
+            <div class="form-send">
+              <input type="button" id="submit" class="btn btn-large" value="转账"/>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- JavaScript Libraries -->
+  <script src="http://localhost:8088/static/lib/jquery/jquery.min.js"></script>
+  <script src="http://localhost:8088/static/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://localhost:8088/static/lib/php-mail-form/validate.js"></script>
+  <script src="http://localhost:8088/static/lib/easing/easing.min.js"></script>
+  <!-- Template Main Javascript File -->
+  <script src="http://localhost:8088/static/js/main.js"></script>
+
+  <script type="text/javascript">
+    var reg = /^\+?[1-9][0-9]*$/;
+    $("#submit").click(function () {
+        var targetId = $("#contact-name").val();
+        var money = $("#contact-money").val();
+        var password = $("#contact-password").val();
+        if (!reg.test(targetId)){
+            alert("目前账户非法");
+            return;
+        }
+        if (!reg.test(money)){
+            alert("转账金额需为整数");
+            return;
+        }
+        if (password === ""){
+            alert("支付密码为空");
+            return;
+        }
+        var userId = $("#contact-userId").val();
+        $.ajax({
+            url: "/api/transfer?code="+userId,
+            data: {
+                    "targetId": targetId,
+                    "money": money,
+                    "password": password,
+                    "userId": userId
+                  },
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                console.log(data);
+                if(data.success){
+                    window.location.href="/api/success?code="+userId+"&orderNo="+data.data;
+                }else {
+                    window.location.href="/api/fail?code="+userId+"&data="+data.data;
+                }
+            }
+        });
+    });
+  </script>
+</body>
+</html>

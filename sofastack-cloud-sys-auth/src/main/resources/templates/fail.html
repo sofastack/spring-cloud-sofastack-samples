@@ -1,0 +1,35 @@
+<!DOCTYPE HTML>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+  <meta charset="utf-8">
+  <title>操作失败</title>
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <link href="http://localhost:8088/static/img/favicon.png" rel="icon">
+  <link href="http://localhost:8088/static/img/apple-touch-icon.png" rel="apple-touch-icon">
+  <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,700,700i|Montserrat:300,400,500,700" rel="stylesheet">
+  <link href="http://localhost:8088/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="http://localhost:8088/static/css/style.css" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <!-- /row -->
+    <div class="row mt centered">
+      <div class="col-lg-4">
+        <img src="http://localhost:8088/static/img/ser02.png" width="180" alt="">
+        <h4>操作失败</h4>
+        <p>异常：<span th:text="${errorMsg}"></span></p>
+      </div>
+    </div>
+    <!-- /row -->
+  </div>
+  <!-- /container -->
+
+  <!-- JavaScript Libraries -->
+  <script src="http://localhost:8088/static/lib/jquery/jquery.min.js"></script>
+  <script src="http://localhost:8088/static/lib/bootstrap/js/bootstrap.min.js"></script>
+  <script src="http://localhost:8088/static/lib/php-mail-form/validate.js"></script>
+  <script src="http://localhost:8088/static/lib/easing/easing.min.js"></script>
+  <!-- Template Main Javascript File -->
+  <script src="http://localhost:8088/static/js/main.js"></script>
+</body>
+</html>

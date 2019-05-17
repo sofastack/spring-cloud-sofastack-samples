@@ -1,0 +1,12 @@
+spring:
+  application:
+    name: sys-auth
+  profiles:
+    active: github
+server:
+  port: 8033
+logging:
+  level:
+    io.sofastack.cloud: INFO
+  path: ./logs
+  config: classpath:logback-gateway.xml

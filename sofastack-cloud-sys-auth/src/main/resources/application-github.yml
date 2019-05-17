@@ -1,0 +1,35 @@
+spring:
+  cloud:
+    zookeeper:
+      connect-string: zookeeper-1-dev.sofastack.tech:2181
+      discovery:
+        enabled: true
+        instance-id: sys-auth
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+#增加 hystrix 超时时间
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 5000
+#ribbon的超时时间
+ribbon:
+  ReadTimeout: 3000
+com:
+  alipay:
+    sofa:
+      rpc:
+        registry:
+          address: zookeeper://zookeeper-1-dev.sofastack.tech:2181
+      tracer:
+        zipkin:
+          enabled: true
+          baseUrl: http://zipkin-dev.sofastack.tech:9411
+        datasource:
+          enable: false

@@ -1,0 +1,31 @@
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="io.sofastack.cloud.trade.dao.TradingOrderDao">
+
+    <resultMap id="TradingOrderMap" type="io.sofastack.cloud.common.model.TradingOrder">
+        <id property="id"                   column="id"                 javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="createTime"       column="create_time" 		javaType="java.util.Date"   jdbcType="DATE"/>
+        <result property="orderType"        column="order_type"         javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="orderState"       column="order_state"        javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="orderAmount"      column="order_amount"    	javaType="java.math.BigDecimal" jdbcType="DECIMAL"/>
+        <result property="sourceAccount"    column="source_account"     javaType="int" jdbcType="INTEGER"/>
+        <result property="targetAccount"   	column="target_account"     javaType="int" jdbcType="INTEGER"/>
+        <result property="orderGroup"   	column="order_group"        javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="orderMark"   	    column="order_mark"         javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="serialNo"   	    column="serial_no"          javaType="java.lang.String" jdbcType="VARCHAR"/>
+        <result property="payChannel"       column="pay_channel"        javaType="java.lang.String" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <insert id="save" parameterType="io.sofastack.cloud.common.model.TradingOrder">
+        insert into sofastack_cloud_order (id,create_time,order_type,order_state,
+        order_amount,source_account,target_account,order_group,order_mark,serial_no,pay_channel)
+        values (#{id},#{createTime},#{orderType},#{orderState},#{orderAmount},#{sourceAccount},#{targetAccount},
+        #{orderGroup},#{orderMark},#{serialNo},#{payChannel})
+    </insert>
+
+    <select id="queryByOrderNo" parameterType="java.lang.String" resultMap="TradingOrderMap">
+        select * from sofastack_cloud_order where id = #{orderNo}
+    </select>
+</mapper>

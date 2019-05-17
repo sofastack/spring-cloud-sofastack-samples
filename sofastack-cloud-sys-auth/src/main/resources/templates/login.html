@@ -1,0 +1,324 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, minimum-scale=0.5, maximum-scale=2.0, user-scalable=yes" />
+    <title>auth-center</title>
+    <link href="http://localhost:8088/static/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <script src="http://localhost:8088/static/lib/jquery/jquery.min.js"></script>
+    <script src="http://localhost:8088/static/lib/bootstrap/js/bootstrap.min.js"></script>
+    <style>
+        .panel{
+            margin-bottom: 20px;
+            background-color: #fff;
+            border-radius: 1px;
+            border: 0px solid transparent;
+        }
+        .panel-login {
+            border-color: #ccc;
+            -webkit-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
+            -moz-box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
+            box-shadow: 0px 1px 1px 0px rgba(0,0,0,0.2);
+        }
+        .panel-login>.panel-heading {
+            color: #00415d;
+            background-color: #fff;
+            border-color: #fff;
+            text-align:center;
+        }
+        .panel-login>.panel-heading a{
+            text-decoration: none;
+            color: #666;
+            font-weight: bold;
+            font-size: 15px;
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+        }
+        .panel-login>.panel-heading a.active{
+            color: #029f5b;
+            font-size: 18px;
+        }
+        .panel-login>.panel-heading hr{
+            margin-top: 10px;
+            margin-bottom: 0px;
+            clear: both;
+            border: 0;
+            height: 1px;
+            background-image: -webkit-linear-gradient(left,rgba(0, 0, 0, 0),rgba(0, 0, 0, 0.15),rgba(0, 0, 0, 0));
+            background-image: -moz-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -ms-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+            background-image: -o-linear-gradient(left,rgba(0,0,0,0),rgba(0,0,0,0.15),rgba(0,0,0,0));
+        }
+        .panel-login input[type="text"],.panel-login input[type="email"],.panel-login input[type="password"] {
+            height: 45px;
+            font-size: 16px;
+            -webkit-transition: all 0.1s linear;
+            -moz-transition: all 0.1s linear;
+            transition: all 0.1s linear;
+        }
+        .panel-login input:hover,
+        .panel-login input:focus {
+            outline:none;
+            -webkit-box-shadow: none;
+            -moz-box-shadow: none;
+            box-shadow: none;
+            border-color: #ccc;
+        }
+        .btn-login {
+            background-color: #59B2E0;
+            outline: none;
+            color: #fff;
+            font-size: 14px;
+            height: auto;
+            font-weight: normal;
+            padding: 14px 0;
+            text-transform: uppercase;
+            border-color: #59B2E6;
+        }
+        .btn-login:hover,
+        .btn-login:focus {
+            color: #fff;
+            background-color: #53A3CD;
+            border-color: #53A3CD;
+        }
+        .btn-register {
+            background-color: #1CB94E;
+            outline: none;
+            color: #fff;
+            font-size: 14px;
+            height: auto;
+            font-weight: normal;
+            padding: 14px 0;
+            text-transform: uppercase;
+            border-color: #1CB94A;
+        }
+        .btn-register:hover,
+        .btn-register:focus {
+            color: #fff;
+            background-color: #1CA347;
+            border-color: #1CA347;
+        }
+
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <img src="https://gw.alipayobjects.com/mdn/sofastack/afts/img/A*WA_HRJ7TKlq4e3BEnwnJCwBjAQAAAQ/original" style="width: 100%;height: 100%">
+    </div>
+    <div class="row">
+        <div class="col-md-6 col-md-offset-3">
+            <div class="panel panel-login">
+                <div class="panel-heading">
+                    <div class="row">
+                        <div class="col-xs-6">
+                            <a href="#" class="active" id="login-form-link">Login</a>
+                        </div>
+                        <div class="col-xs-6">
+                            <a href="#" id="register-form-link">Register</a>
+                        </div>
+                    </div>
+                    <hr>
+                </div>
+                <div class="panel-body">
+                    <div class="row">
+                        <div class="col-lg-12">
+                            <form id="login-form" method="post" role="form" style="display: block;">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="loginName" tabindex="1" class="form-control" placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="loginPass" tabindex="2" class="form-control" placeholder="Password">
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <input type="hidden" name="backUrl" class="form-control" id="loginBack" th:value="${backUrl}">
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <input type="hidden" name="isParam" class="form-control" id="loginParam" th:value="${linkParam}">
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="button" name="login-submit" id="login-submit" tabindex="4" class="form-control btn btn-login" value="Log In">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                            <form id="register-form" method="post" role="form" style="display: none;">
+                                <div class="form-group">
+                                    <input type="text" name="username" id="registerName" tabindex="1" class="form-control" placeholder="Username" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="email" name="email" id="registerEmail" tabindex="1" class="form-control" placeholder="Email Address" value="">
+                                </div>
+                                <div class="form-group">
+                                    <input type="password" name="password" id="registerPass" tabindex="2" class="form-control" placeholder="Password">
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <input type="hidden" name="backUrl" class="form-control" id="registerBack" th:value="${backUrl}">
+                                </div>
+
+                                <div class="form-group" hidden>
+                                    <input type="hidden" name="isParam" class="form-control" id="registerParam" th:value="${linkParam}">
+                                </div>
+
+                                <div class="form-group">
+                                    <input type="password" name="confirm-password" id="registerPayPassword" tabindex="2" class="form-control" placeholder="Pay Password">
+                                </div>
+                                <div class="form-group">
+                                    <div class="row">
+                                        <div class="col-sm-6 col-sm-offset-3">
+                                            <input type="button" name="register-submit" id="register-submit" tabindex="4" class="form-control btn btn-register" value="Register Now">
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    /**
+     * 登录
+     */
+    $("#login-submit").click(function () {
+        var targetId = $("#loginName").val();
+        var password = $("#loginPass").val();
+        var backUrl = $("#loginBack").val();
+        var isParam = $("#loginParam").val();
+        if (targetId === "" && password === ""){
+            alert("请输入用名和密码");
+            return;
+        }
+        $.ajax({
+            url: "/auth/valid",
+            data: {
+                "userName": targetId,
+                "password": password,
+                "backUrl": backUrl
+            },
+            type: "POST",
+            dataType: "json",
+            success: function(data) {
+                console.log(data)
+                if(data.success){
+                    console.log(backUrl+"?code="+data.data)
+                    if (isParam == true || isParam === "true") {
+                        window.location.href=backUrl+"&code="+data.data;
+                    }else {
+                        window.location.href=backUrl+"?code="+data.data;
+                    }
+                }else{
+                    window.location.href="/loginError";
+                }
+            }
+        });
+    });
+
+    /**
+     * 注册
+     */
+    $("#register-submit").click(function () {
+        var targetId = $("#registerName").val();
+        var email = $("#registerEmail").val();
+        var password = $("#registerPass").val();
+        var payPassword = $("#registerPayPassword").val();
+        if (validate(targetId,email,password,payPassword)){
+            var backUrl = $("#loginBack").val();
+            var isParam = $("#loginParam").val();
+            $.ajax({
+                url: "/auth/register",
+                data: {
+                    "userName": targetId,
+                    "password": password,
+                    "email": email,
+                    "payPassword":payPassword
+                },
+                type: "POST",
+                dataType: "json",
+                success: function(data) {
+                    if(data.success){
+                        $.ajax({
+                            url: "/auth/valid",
+                            type: "POST",
+                            dataType: "json",
+                            success: function(data) {
+                                if(data.success){
+                                    if (isParam == true || isParam === "true") {
+                                        window.location.href=backUrl+"&code="+data.data;
+                                    }else {
+                                        window.location.href=backUrl+"?code="+data.data;
+                                    }
+                                }else{
+                                    window.location.href="/loginError";
+                                }
+                            }
+                        });
+                    }else{
+                        window.location.href="/loginError";
+                    }
+                }
+            });
+        }
+    });
+
+    function validate(targetId,email,password,payPassword){
+
+        var emailReg = /^([\.a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/;
+
+        if (targetId === ""){
+            alert("用户名不能为空");
+            return false;
+        }
+
+        if (email === ""){
+            alert("邮箱不能为空");
+            return false;
+        }
+
+        if(!emailReg.test(email)){
+            alert("为了保证后面体验流程完善，请输入有效的邮箱地址！")
+            return false;
+        }
+
+        if (password === ""){
+            alert("登录密码不能为空");
+            return false;
+        }
+
+        if (payPassword === ""){
+            alert("支付密码不能为空");
+            return false;
+        }
+
+        return true;
+    }
+
+    $(function() {
+        $('#login-form-link').click(function(e) {
+            $("#login-form").delay(100).fadeIn(100);
+            $("#register-form").fadeOut(100);
+            $('#register-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+        $('#register-form-link').click(function(e) {
+            $("#register-form").delay(100).fadeIn(100);
+            $("#login-form").fadeOut(100);
+            $('#login-form-link').removeClass('active');
+            $(this).addClass('active');
+            e.preventDefault();
+        });
+    });
+</script>
+</body>
+</html>

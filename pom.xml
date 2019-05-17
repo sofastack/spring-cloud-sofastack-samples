@@ -1,0 +1,250 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <packaging>pom</packaging>
+
+    <parent>
+        <groupId>com.alipay.sofa</groupId>
+        <artifactId>sofaboot-dependencies</artifactId>
+        <version>3.0.0</version>
+        <relativePath/> <!-- lookup parent from repository -->
+    </parent>
+    <groupId>io.sofastack.cloud</groupId>
+    <artifactId>spring-cloud-sofastack-samples</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <name>spring-cloud-sofastack-samples</name>
+    <description>Demo project for Spring Boot</description>
+
+    <properties>
+        <java.version>1.8</java.version>
+        <project.encoding>UTF-8</project.encoding>
+        <spring-cloud.version>Finchley.RELEASE</spring-cloud.version>
+        <tracer.version>3.0.5</tracer.version>
+        <mybatis.spring.version>1.1.1</mybatis.spring.version>
+        <seata.version>0.5.0</seata.version>
+        <druid.version>1.1.10</druid.version>
+        <sentinel.version>1.6.0</sentinel.version>
+        <quartz.version>2.0.8.RELEASE</quartz.version>
+        <quartz.core.version>2.3.0</quartz.core.version>
+        <jackson.core.asl.version>1.9.13</jackson.core.asl.version>
+    </properties>
+
+    <modules>
+        <module>sofastack-cloud-biz-web</module>
+        <module>sofastack-cloud-api-gateway</module>
+        <module>sofastack-cloud-sys-auth</module>
+        <module>sofastack-cloud-sys-user</module>
+        <module>sofastack-cloud-sys-accounting</module>
+        <module>sofastack-cloud-sys-trading</module>
+        <module>sofastack-cloud-sys-common</module>
+        <module>sofastack-cloud-sys-facades/sofastack-cloud-sys-facade</module>
+        <module>sofastack-cloud-sys-facades/sofastack-cloud-sys-rest-facade</module>
+        <module>sofastack-cloud-core-commons/sofastack-cloud-core-compatible-zk</module>
+        <module>sofastack-cloud-core-commons/sofastack-cloud-core-kafka</module>
+        <module>sofastack-cloud-sys-mq-server</module>
+        <module>sofastack-cloud-sys-static</module>
+    </modules>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-test</artifactId>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.springframework.cloud</groupId>
+                <artifactId>spring-cloud-dependencies</artifactId>
+                <version>${spring-cloud.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+
+            <dependency>
+                <groupId>io.sofastack.cloud</groupId>
+                <artifactId>sofastack-cloud-sys-common</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.sofastack.cloud</groupId>
+                <artifactId>sofastack-cloud-sys-facade</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.sofastack.cloud</groupId>
+                <artifactId>sofastack-cloud-sys-rest-facade</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.sofastack.cloud</groupId>
+                <artifactId>sofastack-cloud-core-compatible-zk</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.sofastack.cloud</groupId>
+                <artifactId>sofastack-cloud-core-kafka</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.mybatis.spring.boot</groupId>
+                <artifactId>mybatis-spring-boot-starter</artifactId>
+                <version>${mybatis.spring.version}</version>
+            </dependency>
+            <!--避免被SOFABoot 管控导致版本问题，此处引入所需tracer依赖，并指定版本-->
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>tracer-sofa-boot-starter</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-tracer-spring-cloud-plugin</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-tracer-datasource-plugin</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-tracer-httpclient-plugin</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>sofa-tracer-springmvc-plugin</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>tracer-core</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alipay.sofa</groupId>
+                <artifactId>tracer-extensions</artifactId>
+                <version>${tracer.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba</groupId>
+                <artifactId>druid-spring-boot-starter</artifactId>
+                <version>${druid.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-quartz</artifactId>
+                <version>${quartz.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.quartz-scheduler</groupId>
+                <artifactId>quartz</artifactId>
+                <version>${quartz.core.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>org.codehaus.jackson</groupId>
+                <artifactId>jackson-core-asl</artifactId>
+                <version>${jackson.core.asl.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-spring</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <!--dependency for Apache Dubbo-->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-dubbo</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <!--dependency for Alibaba Dubbo-->
+            <dependency>
+                <groupId>io.seata</groupId>
+                <artifactId>seata-dubbo-alibaba</artifactId>
+                <version>${seata.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>com.alibaba.csp</groupId>
+                <artifactId>sentinel-spring-cloud-gateway-adapter</artifactId>
+                <version>${sentinel.version}</version>
+            </dependency>
+
+        </dependencies>
+    </dependencyManagement>
+
+    <build>
+        <plugins>
+
+            <plugin>
+                <groupId>com.googlecode.maven-java-formatter-plugin</groupId>
+                <artifactId>maven-java-formatter-plugin</artifactId>
+                <version>0.4</version>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>format</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <configFile>${user.dir}/Formatter.xml</configFile>
+                    <encoding>${project.encoding}</encoding>
+                </configuration>
+            </plugin>
+
+
+        </plugins>
+    </build>
+
+    <repositories>
+        <repository>
+            <id>spring-milestones</id>
+            <name>Spring Milestones</name>
+            <url>https://repo.spring.io/milestone</url>
+        </repository>
+    </repositories>
+    <profiles>
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <repositories>
+                <repository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>maven-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </repository>
+            </repositories>
+            <pluginRepositories>
+                <pluginRepository>
+                    <snapshots>
+                        <enabled>true</enabled>
+                    </snapshots>
+                    <id>maven-snapshot</id>
+                    <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+                </pluginRepository>
+            </pluginRepositories>
+        </profile>
+    </profiles>
+
+</project>
