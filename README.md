@@ -1,6 +1,6 @@
-# Spring Cloud SofaStack Samples
+# Samples of Spring Cloud & SOFAStack 
 
-spring-cloud-sofastack-samples 是基于 SOFA 和 SpringCloud 构建的一套微服务系统，希望通过此案例工程，能够用于提供一个完整的基于 SOFA 和 SpringCloud 体系构建的基础的工程模型，帮助用于更好的理解和使用 SOFA 开源生态提供的一系列基础框架和组件。
+spring-cloud-sofastack-samples 是基于 SOFAStack 和 SpringCloud 构建的一套微服务系统，希望通过此案例工程，能够用于提供一个完整的基于 SOFA 和 SpringCloud 体系构建的基础的工程模型，帮助用于更好的理解和使用 SOFAStack 开源生态提供的一系列基础框架和组件。
 
 本案例工程主要包括以下几个核心应用：
 
@@ -27,7 +27,7 @@ cd spring-cloud-sofastack-samples/script/bin && sh deploy.sh
 
 ## 工程共建
 
-为了能够让更多对 SOFA 和 SpringCloud 体系有兴趣的同学参与，本案例工程希望通过内外部共建的方式进行开发。欢迎各路大神基于此工程，使用 SOFA 和 SpringCloud 大展身手。
+为了能够让更多对 SOFAStack 和 SpringCloud 体系有兴趣的同学参与，本案例工程希望通过内外部共建的方式进行开发。欢迎各路大神基于此工程，使用 SOFAStack 和 SpringCloud 大展身手。
 
 * 如果您对此工程或者技术栈感兴趣，欢迎  Star & Watch
 * 如果您希望参与此工程开发共建，欢迎 Fork & PR
