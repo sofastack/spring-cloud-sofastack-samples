@@ -1,7 +1,7 @@
 spring:
   cloud:
     zookeeper:
-      connect-string: zookeeper-1-dev.sofastack.tech:2181
+      connect-string: ${your-zookeeper-hostname}:2181
       discovery:
         enabled: true
         instance-id: api-gateway

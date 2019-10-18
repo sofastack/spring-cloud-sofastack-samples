@@ -1,7 +1,7 @@
 spring:
   cloud:
     zookeeper:
-      connect-string: zookeeper-1-dev.sofastack.tech:2181
+      connect-string: ${your-zookeeper-hostname}:2181
       discovery:
         enabled: true
         instance-id: sys-auth
@@ -26,10 +26,10 @@ com:
     sofa:
       rpc:
         registry:
-          address: zookeeper://zookeeper-1-dev.sofastack.tech:2181
+          address: zookeeper://${your-zookeeper-hostname}:2181
       tracer:
         zipkin:
           enabled: true
-          baseUrl: http://zipkin-dev.sofastack.tech:9411
+          baseUrl: http://${your-zipkin-hostname}:9411
         datasource:
           enable: false
